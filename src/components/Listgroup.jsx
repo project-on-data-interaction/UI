@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import connectAPI from "./connectAPI";
  
 
 const Listgroup = () => {
-	const data = connectAPI()
-	console.log(data)
+
+	const [todos, setTodos] = useState([]);
+
+	
+	useEffect(() =>{
+			fetch("http://localhost:3001/todos")
+				.then(response => {
+					if(response.ok){
+						return response.json()
+					}
+				
+				}).then(data =>{
+					console.log(data)
+					setTodos(data)
+				})
+	},setTodos);
+	
 	return (
 		
 		<div> 
-			 
+			
 			<nav
 		className="navbar navbar-dark bg-dark justify-content-center">
 		<a
@@ -19,7 +34,7 @@ const Listgroup = () => {
 			>To-do App </a>
 	</nav>
 	
-	<div className="container mt-5">
+	<div id="testing" className="container mt-5">
 		<form
 			action="/add/todo"
 			method="post"
@@ -35,9 +50,11 @@ const Listgroup = () => {
 				value="   Add   "
 				className="btn btn-sm btn-primary mx-2"/>
 		</form>
-	
+		{todos.forEach((todo) => (
+        <div key={todo.id}>{todo.title}</div>
+      ))}
 		<ul className="list-group my-5">
-		 
+		
 			<li
 				className="list-group-item d-flex justify-content-between">
 				<input
