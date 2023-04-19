@@ -7,7 +7,6 @@ const Listgroup = () => {
 
 	const [todos, setTodos] = useState([]);
 
-	
 	useEffect(() =>{
 			fetch("http://localhost:3001/todos")
 				.then(response => {
@@ -19,22 +18,22 @@ const Listgroup = () => {
 					console.log(data)
 					setTodos(data)
 				})
-	},setTodos);
+	},[]);
 	
 	return (
 		
 		<div> 
-			
 			<nav
 		className="navbar navbar-dark bg-dark justify-content-center">
 		<a
-			class="navbar-brand"
+			className="navbar-brand"
 			//style="font-size: 32px"
 			href="#"
 			>To-do App </a>
 	</nav>
-	
-	<div id="testing" className="container mt-5">
+			
+
+<div id="testing" className="container mt-5">
 		<form
 			action="/add/todo"
 			method="post"
@@ -42,7 +41,7 @@ const Listgroup = () => {
 			<input
 				type="text"
 				name="todo"
-				class="form-control"
+				className="form-control"
 				placeholder="Enter To-do-items"/>
 	
 			<input
@@ -50,33 +49,29 @@ const Listgroup = () => {
 				value="   Add   "
 				className="btn btn-sm btn-primary mx-2"/>
 		</form>
-		{todos.forEach((todo) => (
-        <div key={todo.id}>{todo.title}</div>
-      ))}
-		<ul className="list-group my-5">
 		
-			<li
+		<ul className="list-group my-5">
+		{todos.map((todo) => (
+				<li key={todo.id}
 				className="list-group-item d-flex justify-content-between">
 				<input
 					className="form-check-input me-1"
 					type="checkbox"
 					value=""
-					id="firstCheckbox"/>
+					id="firstCheckbox" />
 			 
 				<label
 					className="form-check-label"
-					for="firstCheckbox"></label>
+					>{todo.activity}</label>
 				<a
 					href="#"
 					className="btn btn-dark btn-sm mx-2">
 					Delete
 				</a>
 			</li>
-	
-	 
+      ))}
 		</ul>
 	</div>
-			
 		</div>
 	)
 }
