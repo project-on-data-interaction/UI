@@ -1,11 +1,15 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import connectAPI from "./connectAPI";
  
 
 const Listgroup = () => {
+	const data = connectAPI()
+	console.log(data)
 	return (
+		
 		<div> 
+			 
 			<nav
 		className="navbar navbar-dark bg-dark justify-content-center">
 		<a
