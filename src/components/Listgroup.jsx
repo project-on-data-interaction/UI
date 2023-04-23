@@ -1,10 +1,36 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import connectAPI from "./connectAPI";
+import {useRef} from 'react';
  
-
 const Listgroup = () => {
-
+	const inputRef = useRef(null);
+	
+ function Addbutton (event){
+	event.preventDefault();
+	  //console.log("addbutton working");
+		console.log(inputRef.current.value);
+		const todoItem = inputRef.current.value
+		fetch('http://localhost:3001/addnew', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				completed:false,
+				activity:todoItem
+			})
+		})
+		.then(res => res.json())
+		.then(data => {
+			console.log(data)
+			const newTodos = [...todos,data]
+			setTodos(newTodos)
+		})
+		.catch(err => console.log(err))
+	
+ }
+ 
 	const [todos, setTodos] = useState([]);
 
 	useEffect(() =>{
@@ -35,10 +61,10 @@ const Listgroup = () => {
 
 <div id="testing" className="container mt-5">
 		<form
-			action="/add/todo"
-			method="post"
-			className="d-flex">
+		
+ 			className="d-flex">
 			<input
+			ref={inputRef}
 				type="text"
 				name="todo"
 				className="form-control"
@@ -47,7 +73,8 @@ const Listgroup = () => {
 			<input
 				type="submit"
 				value="   Add   "
-				className="btn btn-sm btn-primary mx-2"/>
+				onClick={Addbutton}
+				className="btn btn-sm btn-primary mx-2"/> 
 		</form>
 		
 		<ul className="list-group my-5">
