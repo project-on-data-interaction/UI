@@ -8,7 +8,7 @@ const Listgroup = () => {
  function Addbutton (event){
 	event.preventDefault();
 	  //console.log("addbutton working");
-		console.log(inputRef.current.value);
+		//console.log(inputRef.current.value);
 		const todoItem = inputRef.current.value
 		fetch('http://localhost:3001/addnew', {
 			method: 'POST',
@@ -23,13 +23,36 @@ const Listgroup = () => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			console.log(data)
-			const newTodos = [...todos,data]
+			//console.log(data)
+			const newTodos = [ ...todos,data]
 			setTodos(newTodos)
 		})
 		.catch(err => console.log(err))
-	
+ 
  }
+  
+
+ function Deletebutton (id) {
+	 //console.log(id);
+	 fetch('http://localhost:3001/delete/'+ id, {
+		method: 'DELETE',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}	 
+	})	  
+	.then(data => {
+		console.log(data)
+		const newArray = todos.filter(item => id !== item.id )
+		setTodos(newArray);
+	})
+	.catch(err => console.log(err))
+
+}
+ 
+
+
+
  
 	const [todos, setTodos] = useState([]);
 
@@ -91,9 +114,12 @@ const Listgroup = () => {
 					className="form-check-label"
 					>{todo.activity}</label>
 				<a
+				 
+				//onClick={Deletebutton}
+				onClick={() => Deletebutton(todo.id)}
 					href="#"
 					className="btn btn-dark btn-sm mx-2">
-					Delete
+					Delete	  
 				</a>
 			</li>
       ))}
