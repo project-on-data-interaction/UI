@@ -47,12 +47,27 @@ const Listgroup = () => {
 		setTodos(newArray);
 	})
 	.catch(err => console.log(err))
-
 }
- 
 
-
-
+function Markcompleted (id,completed) {
+	//console.log(id);
+	const todoItem = inputRef.current.value
+	fetch('http://localhost:3001/completed/'+ id, {
+	 method: 'PUT',
+	 headers: {
+		 'Accept': 'application/json',
+		 'Content-Type': 'application/json'
+	 }	, 
+	 body: JSON.stringify({
+		completed:!completed,
+		activity:todoItem
+	})
+ })	  
+ .then(data => {
+	 console.log(data)
+ })
+ .catch(err => console.log(err))
+}
  
 	const [todos, setTodos] = useState([]);
 
@@ -67,8 +82,11 @@ const Listgroup = () => {
 					console.log(data)
 					setTodos(data)
 				})
+
 	},[]);
+
 	
+
 	return (
 		
 		<div> 
@@ -105,9 +123,10 @@ const Listgroup = () => {
 				<li key={todo.id}
 				className="list-group-item d-flex justify-content-between">
 				<input
+					onClick={() => Markcompleted(todo.id, todo.completed)}
 					className="form-check-input me-1"
 					type="checkbox"
-					value=""
+					defaultChecked={todo.completed}
 					id="firstCheckbox" />
 			 
 				<label
