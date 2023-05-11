@@ -30,6 +30,14 @@
 .App-link {
 	color: #61dafb;
 }
+.custom-div {
+	margin-top: 5rem;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 50rem;
+	background-color: teal;
+}
 
 @keyframes App-logo-spin {
 	from {

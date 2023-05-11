@@ -114,7 +114,7 @@ const Listgroup = () => {
 	}, []);
 
 	return (
-		<div>
+		<div class="custom-div">
 			<nav className="navbar navbar-dark bg-dark justify-content-center">
 				<a
 					className="navbar-brand"
