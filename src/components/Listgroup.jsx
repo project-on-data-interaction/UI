@@ -17,7 +17,7 @@ const Listgroup = () => {
 		const todoItem =
 			inputRef.current.value;
 		fetch(
-			"http://localhost:3001/addnew",
+			"http://localhost:3005/todos",
 			{
 				method: "POST",
 				headers: {
@@ -46,7 +46,7 @@ const Listgroup = () => {
 	function Deletebutton(id) {
 		//console.log(id);
 		fetch(
-			"http://localhost:3001/delete/" +
+			"http://localhost:3005/todos/" +
 				id,
 			{
 				method: "DELETE",
@@ -75,7 +75,7 @@ const Listgroup = () => {
 		const todoItem =
 			inputRef.current.value;
 		fetch(
-			"http://localhost:3001/completed/" +
+			"http://localhost:3005/todos/" +
 				id,
 			{
 				method: "PUT",
@@ -101,7 +101,7 @@ const Listgroup = () => {
 	);
 
 	useEffect(() => {
-		fetch("http://localhost:3001/todos")
+		fetch("http://localhost:3005/todos")
 			.then((response) => {
 				if (response.ok) {
 					return response.json();
